@@ -24,7 +24,7 @@ public class kitten_behavior : MonoBehaviour {
 
 	IEnumerator prepare_to_slide(){
 		yield return new WaitForSeconds(time_til_slide);
-		Debug.Log("Sliding!");
+		//Debug.Log("Sliding!");
 		anim.SetBool("idling", false);
 		grav = Random.Range(.05f,.5f);
 		my_body.gravityScale = grav;

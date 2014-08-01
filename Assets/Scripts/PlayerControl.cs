@@ -6,6 +6,8 @@ public class PlayerControl : MonoBehaviour {
 	public float moveForce = 30f;			// Amount of force added to move the player left and right.
 	public float maxSpeed = 200f;				// The fastest the player can travel in the x axis.
 	public Animator anim;
+	GameObject carried;
+	bool carrying = false;
 	//public GameObject arrowModel;
 	//public GameObject boss;
 	//int health = 100;
@@ -62,21 +64,9 @@ public class PlayerControl : MonoBehaviour {
 			// ... flip the player.
 			Flip();
 
-
-		
-		// Shoot an Arrow
-		if (Input.GetButtonDown("Fire1")) {
-
-			//shootArrow();
+		if(carrying){
+			carried.transform.position = transform.position;
 		}
-
-		/*if (health <= 0){
-			Debug.Log ("Game Over");
-			//gameObject.active = false;
-			lost.SetActive(true);
-			gameObject.SetActive(false);
-			AudioSource.PlayClipAtPoint(loseClip, transform.position);
-		}*/
 	}
 
 
@@ -96,13 +86,31 @@ public class PlayerControl : MonoBehaviour {
 	void OnCollisionEnter2D (Collision2D col)
 	{
 		// If the colliding gameobject is an Enemy...
-		//if(col.gameObject.tag == "Enemy"){
-			//Debug.Log("Ow!");
-			//AudioSource.PlayClipAtPoint(damageClip, transform.position);
-	//	}
+
 
 	}
 
+	void OnTriggerEnter2D (Collider2D col)
+	{
+		// If the colliding gameobject is safe...
+		if(col.gameObject.tag == "Safe"){
+			Debug.Log("Kitten Saved!");
+			if(carrying){
+				carried.GetComponent<SpriteRenderer>().enabled = false;
+				carried.SetActive(false);
+				carrying = false;
+			}
+		}
+
+		if(col.gameObject.tag == "Kitten" && !carrying){
+			//if (Input.GetButtonDown("Fire1")) {
+			carrying = true;
+			carried = col.gameObject;
+			//}
+		}
+		
+	}
+		
 
 
 }
