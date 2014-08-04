@@ -2,20 +2,30 @@
 using System.Collections;
 
 public class kitten_spawner : MonoBehaviour {
+	int num_players;
 	int min;
 	int max; //make spawn rate adjustable
 	public GameObject kittenModel;
+	GameObject[] g;
 
 	// Use this for initialization
 	void Start () {
-		min = 1;
-		max = 3;	
+		g = GameObject.FindGameObjectsWithTag("Player");
+		num_players = g.Length;
+		min = Mathf.Abs( 5 - num_players);
+		max = Mathf.Abs( 8 - num_players);	
 		StartCoroutine(spread_cats());
 	}
 	
 	// Update is called once per frame
 	void Update () {
 	
+	}
+
+	public void alert_missed_kitten(){
+		for(int i = 0; i < g.Length; i++){
+			g[i].gameObject.GetComponent<Score>().kittenMissed();
+		}
 	}
 
 	IEnumerator spread_cats(){

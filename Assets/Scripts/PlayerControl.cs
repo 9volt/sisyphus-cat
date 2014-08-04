@@ -94,11 +94,12 @@ public class PlayerControl : MonoBehaviour {
 	{
 		// If the colliding gameobject is safe...
 		if(col.gameObject.tag == "Safe"){
-			Debug.Log("Kitten Saved!");
+			//Debug.Log("Kitten Saved!");
 			if(carrying){
 				carried.GetComponent<SpriteRenderer>().enabled = false;
 				carried.SetActive(false);
 				carrying = false;
+				this.gameObject.GetComponent<Score>().savedKitten();
 			}
 		}
 
