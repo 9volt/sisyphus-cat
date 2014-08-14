@@ -11,13 +11,17 @@ public class kitten_behavior : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		anim.SetBool("idling", true);
-		grabbed = false;
-		time_til_slide = Random.Range(1,10);
-		ks = GameObject.FindGameObjectWithTag("MainCamera").gameObject.GetComponent<kitten_spawner>();
-		//Debug.Log(time_til_slide);
-		gameObject.GetComponent<BoxCollider2D>().enabled = false;
-		StartCoroutine(prepare_to_slide());
+		//if(networkView.isMine){
+			anim.SetBool("idling", true);
+			grabbed = false;
+			time_til_slide = Random.Range(1,10);
+			ks = GameObject.FindGameObjectWithTag("MainCamera").gameObject.GetComponent<kitten_spawner>();
+			//Debug.Log(time_til_slide);
+			gameObject.GetComponent<BoxCollider2D>().enabled = false;
+			StartCoroutine(prepare_to_slide());
+		//}else {
+		//	this.enabled = false;
+		//}
 	}
 	
 	// Update is called once per frame
